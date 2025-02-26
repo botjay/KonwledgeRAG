@@ -1,0 +1,23 @@
+# RAG系统配置
+
+# 语言模型配置
+llm:
+  model: "DeepSeek-R1"
+  embedding_model: "text-embedding-3-small"
+  max_tokens: 1000
+
+# 向量数据库配置
+vector_store:
+  type: "qdrant"
+  url: "http://localhost:6333"
+  persist_dir: "./data/qdrant"
+  persist: false  # 是否持久化存储，true表示持久化到磁盘，false表示仅使用内存
+
+# 文档配置
+docs:
+  dir: "./docs"
+
+# API配置
+api:
+  openai_key: "sk-xxx"  # 默认为空，优先使用环境变量
+  openai_proxy: "https://xxx" 
