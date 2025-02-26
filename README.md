@@ -197,7 +197,21 @@ go run cmd/ai/main.go --docs ./docs
 
 # 交互式问答
 请输入查询，exit退出: 订单状态的枚举有哪些
-回答: 资产表是 `ods_account_assets`。该表在多个文档中被反复定义，其字段包含资产相关的核心指标，如 `begin_amount`（期初金额）、`ledger_amount`（账本金额）、`market_value`（市场价值）、`total_asset`（总资产）等，且表名中的 `assets` 直接表明其用途。
+回答: <think>
+好的，我需要回答用户的问题：“订单状态的枚举有哪些”。首先，我要仔细查看提供的上下文，看看是否有关于订单状态枚举的信息。
+
+用户提供的四个文档看起来都是重复的，每个文档都包含两个主要部分：枚举类型MailStatus和数据库表order_details。在枚举类型部分，MailStatus有四个状态：待发送、发送中、已完成、发送失败，对应的变量名和原值。但用户的问题是关于订单状态的枚举，而不是邮件状态。
+
+接下来看数据库表order_details的结构。每个文档中的order_status字段描述是：“订单状态：init-初始化，pending-待处理，processing-处理中，completed-已完成，cancelled-已取消”。这里明确列出了订单状态的枚举值，每个值对应一个状态名称。虽然这些值是以字符类型存储的，并不是编程中的枚举类型，但根据问题中的“枚举”可能指的是这些可能的状态值。
+
+需要确认的是，用户是否将数据库字段中的这些选项视为枚举。通常，数据库中的字符字段可能使用枚举约束，但根据提供的文档，这里并没有明确说明order_status是一个数据库枚举类型，而是用字符类型存储，并列出可能的取值。因此，这里的“枚举”可能指的是该字段允许的值列表。
+
+因此，正确的订单状态枚举值应该是init、pending、processing、completed、cancelled，对应的中文描述分别是初始化、待处理、处理中、已完成、已取消。而邮件状态的枚举是另一个枚举类型MailStatus，与订单状态无关，所以不需要考虑。
+
+总结，用户的问题答案应基于order_details表中order_status字段的描述，列出所有可能的值。
+</think>
+
+订单状态的枚举值包括：init（初始化）、pending（待处理）、processing（处理中）、completed（已完成）、cancelled（已取消）。这些状态定义在数据库表 `order_details` 的 `order_status` 字段中。
 
 # 后续运行，跳过加载文档
 go run cmd/ai/main.go --skip-load
